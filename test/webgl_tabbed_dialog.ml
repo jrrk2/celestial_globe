@@ -104,12 +104,14 @@ let init () =
   let date_picker = Tabbed_dialog.create_date_picker () in
   let color_picker = Tabbed_dialog.create_color_picker () in
   let webgl_tests = Webgl_tests_tabbed.create_webgl_tests_tab () in
+  let geolocation_globe = Geolocation_globe.create_geolocation_tab () in
   
   (* Define tabs *)
   let tabs = [
     ("date-tab", "Date Selection", date_picker, true);
     ("color-tab", "Color Selection", color_picker, false);
     ("webgl-tab", "WebGL Tests", webgl_tests, false);
+    ("geo-tab", "Celestial Globe", geolocation_globe, false);
   ] in
   
   (* Store tab content for reference *)
