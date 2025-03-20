@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomical Tools with WebGL Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        #app {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Ensure canvas displays properly */
+        canvas {
+            display: block;
+        }
+        
+        /* Basic responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- This div is the container for your js_of_ocaml application -->
+    <div id="app"></div>
+    
+    <!-- Load your compiled JavaScript file -->
+    <script src="_build/default/test/webgl_tabbed_dialog.bc.js"></script>
+</body>
+</html>  

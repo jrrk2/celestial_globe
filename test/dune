@@ -1,6 +1,6 @@
 (executables
- (names webgl_test)
- (libraries js_of_ocaml-lwt)
+ (names webgl_tabbed_dialog)
+ (libraries unix js_of_ocaml-lwt js_of_ocaml-tyxml)
  (modes js wasm)
  (js_of_ocaml
   (flags :standard))
@@ -9,7 +9,7 @@
 
 (alias
  (name default)
- (deps webgl_test.bc.js))
+ (deps webgl_tabbed_dialog.bc.js))
 
 (env
   (dev
