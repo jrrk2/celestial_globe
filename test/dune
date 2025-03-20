@@ -1,0 +1,22 @@
+(executables
+ (names webgl_test)
+ (libraries js_of_ocaml-lwt)
+ (modes js wasm)
+ (js_of_ocaml
+  (flags :standard))
+ (preprocess
+  (pps js_of_ocaml-ppx)))
+
+(alias
+ (name default)
+ (deps webgl_test.bc.js))
+
+(env
+  (dev
+    (flags (:standard -g -w -16 -w -32 -w -52 -w -21 -w -26 -w -27 -w -37 -w -11 -w -33))
+    (js_of_ocaml
+     (compilation_mode whole_program)
+     (flags --pretty --disable genprim --noinline --debug-info)
+     ) 
+  )
+)

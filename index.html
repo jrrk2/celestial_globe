@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>WebGL globe</title>
+    <style>
+      body { 
+        background-color: #000;
+        margin: 0;
+        padding: 20px;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      #canvas { 
+        background-color: #111;
+        display: block;
+        margin: 0 auto;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <div><span id="fps"></span> frames per second</div>
+    
+    <!-- Make sure this path matches your compiled output file -->
+    <script type="text/javascript" src="_build/default/celestial_globe_adaptation.bc.js" defer></script>
+  </body>
+</html>
