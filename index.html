@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WebGL Textured Globe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    #canvas-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      background-color: #000;
+    }
+    #controls {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    #fps {
+      float: right;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+    }
+    #texture-form {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    #texture-url {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+    }
+    button {
+      padding: 8px 15px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    #toggle-texture {
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebGL Textured Globe</h1>
+  
+  <div id="controls">
+    <div id="fps">0.0 FPS</div>
+    <form id="texture-form">
+      <input type="text" id="texture-url" placeholder="Enter texture URL (e.g., earth.jpg)" value="earth.jpg">
+      <button type="submit">Load Texture</button>
+    </form>
+    <button id="toggle-texture">Toggle Texture</button>
+  </div>
+  
+  <div id="canvas-container">
+    <canvas id="canvas" width="1024" height="1024"></canvas>
+  </div>
+  
+  <script src="webgldemo.bc.js"></script>
+</body>
+</html>
