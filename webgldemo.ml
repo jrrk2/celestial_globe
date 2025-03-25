@@ -198,87 +198,41 @@ let create_celestial_fragment_shader num_textures =
     }
   " texture_uniform_declarations coord_uniform_declarations texture_sampling_code
 
-let imaged = [
-"M1";
-"M100";
-"M102";
-"M103";
-"M105";
-"M106";
-"M108";
-"M109";
-"M110";
-"M13";
-"M16";
-"M17";
-"M27";
-"M3";
-"M31";
-"M32";
-"M34";
-"M35";
-"M36";
-"M37";
-"M38";
-"M40";
-"M41";
-"M42";
-"M43";
-"M44";
-"M45";
-"M46";
-"M47";
-"M48";
-"M50";
-"M51";
-"M52";
-"M61";
-"M63";
-"M65";
-"M66";
-"M67";
-"M74";
-"M76";
-"M77";
-"M78";
-"M81";
-"M82";
-"M95";
-"M97";
-]
-
-(* Sample Messier object data - you should replace this with your actual data *)
-let messier_objects =
-  let lst = ref [] in
-  let open Messier_data in
-  List.iter (fun { 
-    id;
-    name;
-    common_name;
-    object_type;
-    ra_hours; (* X15 *)
-    constellation;
-    dec_degrees;
-    magnitude;
-    distance_kly;
-    size_arcmin;
-    description;
-    image_url;
-    discovery_year;
-    best_viewed;
-    } ->
-  let siz = max (fst size_arcmin) (snd size_arcmin) in
-  let image = List.mem name imaged in
-  if object_type = Galaxy && List.length !lst < 16 && image then lst := (name^" "^(match common_name with Some txt -> txt | None -> ""), ra_hours *. 15.0, dec_degrees, 1.0, id ) :: !lst ) Messier_data.catalog;
-  !lst
-
-  (* Sample format: Name, RA (degrees), DEC (degrees), Angular Size (we'll magnify this)
-  ("M1 (Crab Nebula)", 83.63, 22.01, 1.0);
-  ("M31 (Andromeda Galaxy)", 10.68, 41.27, 1.0);
-  ("M42 (Orion Nebula)", 83.82, -5.39, 1.0);
-  ("M45 (Pleiades)", 56.75, 24.12, 1.0);
-  *)
-  
+let messier_objects = 
+   [
+     (* Cluster 16 *)
+     ("Cluster 16", 173.64, 54.52, 4.29, 16, "cluster_16_M109_M108.jpg");
+     (* Cluster 15 *)
+     ("Cluster 15", 23.34, 60.66, 0.50, 15, "cluster_15_M103.jpg");
+     (* Cluster 13 *)
+     ("Cluster 13", 40.67, -0.01, 0.50, 13, "cluster_13_M77.jpg");
+     (* Cluster 10 *)
+     ("Cluster 10", 181.02, 18.15, 34.02, 10, "cluster_10_M66_M65_M63_M61.jpg");
+     (* Cluster 5 *)
+     ("Cluster 5", 13.15, 46.61, 23.70, 5, "cluster_5_M52_M34_M32_M31.jpg");
+     (* Cluster 4 *)
+     ("Cluster 4", 299.90, 22.72, 0.50, 4, "cluster_4_M27.jpg");
+     (* Cluster 2 *)
+     ("Cluster 2", 221.08, 41.95, 27.92, 2, "cluster_2_M102_M51_M13_M3.jpg");
+     (* Cluster 1 *)
+     ("Cluster 1", 87.01, 28.26, 8.34, 1, "cluster_1_M37_M36_M35_M1.jpg");
+     (* Cluster 3 *)
+     ("Cluster 3", 274.94, -14.98, 1.46, 3, "cluster_3_M17_M16.jpg");
+     (* Cluster 6 *)
+     ("Cluster 6", 75.23, 20.01, 27.44, 6, "cluster_6_M78_M45_M38.jpg");
+     (* Cluster 7 *)
+     ("Cluster 7", 162.95, 62.96, 14.48, 7, "cluster_7_M97_M82_M81_M40.jpg");
+     (* Cluster 8 *)
+     ("Cluster 8", 96.12, -11.56, 22.92, 8, "cluster_8_M46_M43_M42_M41.jpg");
+     (* Cluster 9 *)
+     ("Cluster 9", 118.33, -2.23, 29.64, 9, "cluster_9_M50_M48_M47_M44.jpg");
+     (* Cluster 11 *)
+     ("Cluster 11", 152.02, 12.03, 22.51, 11, "cluster_11_M105_M95_M67.jpg");
+     (* Cluster 12 *)
+     ("Cluster 12", 19.96, 36.35, 25.08, 12, "cluster_12_M110_M76_M74.jpg");
+     (* Cluster 14 *)
+     ("Cluster 14", 185.23, 31.56, 18.90, 14, "cluster_14_M106_M100.jpg")
+   ]
 
 (* Helper to get DOM localStorage object *)
 let local_storage () =
@@ -661,7 +615,8 @@ let generate_sphere radius segments =
   
   vertices_array, normals_array, texcoords_array, indices_array  (* Return texture coordinates as well *)
 
-(* Modified start function to use celestial coordinates *)
+(* Updated start_celestial_globe function to use cluster filenames *)
+
 let start_celestial_globe texture_base_url =
   debug "Starting celestial globe...";
   
@@ -729,14 +684,16 @@ let start_celestial_globe texture_base_url =
   let light_dir = float32array [| 0.5; 0.7; 1.0 |] in
   gl##uniform3fv_typed light_dir_loc light_dir;
   
-  (* Load textures with celestial coordinates *)
+  (* Load textures with celestial coordinates - UPDATED FOR CLUSTER FILENAMES *)
   log_texture_msg `Debug "Loading celestial textures...";
   
-  (* Magnification factor to make objects more visible *)
-  let magnification = 20.0 in
+  (* Magnification factor to make objects more visible - reduced for clusters *)
+  let magnification = 1.0 in
   
-  let texture_infos = List.mapi (fun i (name, ra, dec, size, id) ->
-    let url = Printf.sprintf "%s/M%d.jpg" texture_base_url id in
+  let texture_infos = List.mapi (fun i (name, ra, dec, size, id, filename) ->
+    (* For clusters, use the full filename provided in the messier_objects list *)
+    let url = Printf.sprintf "%s/%s" texture_base_url filename in
+    
     let magnified_size = size *. magnification in
     log_texture_msg `Debug (Printf.sprintf "Loading texture for %s at RA=%.2f DEC=%.2f, size=%.2f degrees (magnified to %.2f)" 
       name ra dec size magnified_size);
@@ -840,14 +797,6 @@ let start_celestial_globe texture_base_url =
     let sx = sin rx in
     let cy = cos ry in
     let sy = sin ry in
-    
-    (* Combined X and Y rotation matrix
-    let rotation = [|
-      cy;     0.0;   sy;    0.0;
-      sx*.sy; cx;    sx*.cy; 0.0;
-      (-. cx*.sy); sx;  cx*.cy; 0.0;
-      0.0;    0.0;   0.0;   1.0
-    |] in *)
     
     let rotation = [|
       cos !rotation_y; 0.0; sin !rotation_y; 0.0;
@@ -1254,7 +1203,7 @@ let () =
         Lwt.async (fun () -> start "http://localhost:9000/earth.jpg")
     | "celestial" ->
         debug "Calling celestial globe";
-        let texture_base_url = "http://localhost:9000/messier" in
+        let texture_base_url = "http://localhost:9000/atlas" in
         debug "Using texture base URL: %s" texture_base_url;
         Lwt.async (fun () -> start_celestial_globe texture_base_url)
     | _ ->

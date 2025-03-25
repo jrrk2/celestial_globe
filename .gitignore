@@ -1,2 +1,6 @@
 *~
 _build/
+*.cm?
+*.o
+atlas_generator_makefile
+atlas/

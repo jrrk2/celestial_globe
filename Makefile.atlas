@@ -1,0 +1,401 @@
+# Makefile for generating Messier texture atlases
+# Generated on 2025-03-25 12:13:03
+
+OUTPUT_DIR = atlas
+SOURCE_DIR = messier
+
+default: all
+
+$(OUTPUT_DIR)/temp:
+	@mkdir -p $(OUTPUT_DIR)/temp
+
+$(OUTPUT_DIR):
+	@mkdir -p $(OUTPUT_DIR)
+
+atlas/cluster_16_M109_M108.jpg: messier/M109.jpg messier/M108.jpg
+$(OUTPUT_DIR)/temp/M109_cropped.jpg: messier/M109.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M109 (7.6 x 4.7 arcmin)"
+	@magick messier/M109.jpg -gravity center -extent 614x379 \
+		-bordercolor black -border 2 \
+		-resize 512x316 $(OUTPUT_DIR)/temp/M109_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M108_cropped.jpg: messier/M108.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M108 (8.7 x 2.2 arcmin)"
+	@magick messier/M108.jpg -gravity center -extent 614x154 \
+		-bordercolor black -border 2 \
+		-resize 512x129 $(OUTPUT_DIR)/temp/M108_cropped.jpg
+
+atlas/cluster_16_M109_M108.jpg: $(OUTPUT_DIR)/temp/M109_cropped.jpg $(OUTPUT_DIR)/temp/M108_cropped.jpg
+	@echo "Creating atlas for cluster 16 (M109, M108)"
+	@montage $(OUTPUT_DIR)/temp/M109_cropped.jpg $(OUTPUT_DIR)/temp/M108_cropped.jpg -tile 2x1 -geometry 512x512+0+0 -background black atlas/cluster_16_M109_M108.jpg
+atlas/cluster_15_M103.jpg: messier/M103.jpg
+$(OUTPUT_DIR)/temp/M103_cropped.jpg: messier/M103.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M103 (6.0 x 6.0 arcmin)"
+	@magick messier/M103.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M103_cropped.jpg
+
+atlas/cluster_15_M103.jpg: $(OUTPUT_DIR)/temp/M103_cropped.jpg
+	@echo "Creating atlas for cluster 15 (M103)"
+	@magick $(OUTPUT_DIR)/temp/M103_cropped.jpg -resize 512x512 atlas/cluster_15_M103.jpg
+atlas/cluster_13_M77.jpg: messier/M77.jpg
+$(OUTPUT_DIR)/temp/M77_cropped.jpg: messier/M77.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M77 (7.1 x 6.0 arcmin)"
+	@magick messier/M77.jpg -gravity center -extent 614x518 \
+		-bordercolor black -border 2 \
+		-resize 512x432 $(OUTPUT_DIR)/temp/M77_cropped.jpg
+
+atlas/cluster_13_M77.jpg: $(OUTPUT_DIR)/temp/M77_cropped.jpg
+	@echo "Creating atlas for cluster 13 (M77)"
+	@magick $(OUTPUT_DIR)/temp/M77_cropped.jpg -resize 512x512 atlas/cluster_13_M77.jpg
+atlas/cluster_10_M66_M65_M63_M61.jpg: messier/M66.jpg messier/M65.jpg messier/M63.jpg messier/M61.jpg
+$(OUTPUT_DIR)/temp/M66_cropped.jpg: messier/M66.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M66 (9.1 x 4.2 arcmin)"
+	@magick messier/M66.jpg -gravity center -extent 614x283 \
+		-bordercolor black -border 2 \
+		-resize 512x236 $(OUTPUT_DIR)/temp/M66_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M65_cropped.jpg: messier/M65.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M65 (9.8 x 2.9 arcmin)"
+	@magick messier/M65.jpg -gravity center -extent 614x181 \
+		-bordercolor black -border 2 \
+		-resize 512x151 $(OUTPUT_DIR)/temp/M65_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M63_cropped.jpg: messier/M63.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M63 (12.6 x 7.2 arcmin)"
+	@magick messier/M63.jpg -gravity center -extent 614x350 \
+		-bordercolor black -border 2 \
+		-resize 512x292 $(OUTPUT_DIR)/temp/M63_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M61_cropped.jpg: messier/M61.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M61 (6.5 x 5.9 arcmin)"
+	@magick messier/M61.jpg -gravity center -extent 614x556 \
+		-bordercolor black -border 2 \
+		-resize 512x464 $(OUTPUT_DIR)/temp/M61_cropped.jpg
+
+atlas/cluster_10_M66_M65_M63_M61.jpg: $(OUTPUT_DIR)/temp/M66_cropped.jpg $(OUTPUT_DIR)/temp/M65_cropped.jpg $(OUTPUT_DIR)/temp/M63_cropped.jpg $(OUTPUT_DIR)/temp/M61_cropped.jpg
+	@echo "Creating atlas for cluster 10 (M66, M65, M63, M61)"
+	@montage $(OUTPUT_DIR)/temp/M66_cropped.jpg $(OUTPUT_DIR)/temp/M65_cropped.jpg $(OUTPUT_DIR)/temp/M63_cropped.jpg $(OUTPUT_DIR)/temp/M61_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_10_M66_M65_M63_M61.jpg
+atlas/cluster_5_M52_M34_M32_M31.jpg: messier/M52.jpg messier/M34.jpg messier/M32.jpg messier/M31.jpg
+$(OUTPUT_DIR)/temp/M52_cropped.jpg: messier/M52.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M52 (13.0 x 13.0 arcmin)"
+	@magick messier/M52.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M52_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M34_cropped.jpg: messier/M34.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M34 (35.0 x 35.0 arcmin)"
+	@magick messier/M34.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M34_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M32_cropped.jpg: messier/M32.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M32 (8.7 x 6.5 arcmin)"
+	@magick messier/M32.jpg -gravity center -extent 614x458 \
+		-bordercolor black -border 2 \
+		-resize 512x382 $(OUTPUT_DIR)/temp/M32_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M31_cropped.jpg: messier/M31.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M31 (178.0 x 63.0 arcmin)"
+	@magick messier/M31.jpg -gravity center -extent 614x217 \
+		-bordercolor black -border 2 \
+		-resize 512x181 $(OUTPUT_DIR)/temp/M31_cropped.jpg
+
+atlas/cluster_5_M52_M34_M32_M31.jpg: $(OUTPUT_DIR)/temp/M52_cropped.jpg $(OUTPUT_DIR)/temp/M34_cropped.jpg $(OUTPUT_DIR)/temp/M32_cropped.jpg $(OUTPUT_DIR)/temp/M31_cropped.jpg
+	@echo "Creating atlas for cluster 5 (M52, M34, M32, M31)"
+	@montage $(OUTPUT_DIR)/temp/M52_cropped.jpg $(OUTPUT_DIR)/temp/M34_cropped.jpg $(OUTPUT_DIR)/temp/M32_cropped.jpg $(OUTPUT_DIR)/temp/M31_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_5_M52_M34_M32_M31.jpg
+atlas/cluster_4_M27.jpg: messier/M27.jpg
+$(OUTPUT_DIR)/temp/M27_cropped.jpg: messier/M27.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M27 (8.0 x 5.7 arcmin)"
+	@magick messier/M27.jpg -gravity center -extent 614x436 \
+		-bordercolor black -border 2 \
+		-resize 512x364 $(OUTPUT_DIR)/temp/M27_cropped.jpg
+
+atlas/cluster_4_M27.jpg: $(OUTPUT_DIR)/temp/M27_cropped.jpg
+	@echo "Creating atlas for cluster 4 (M27)"
+	@magick $(OUTPUT_DIR)/temp/M27_cropped.jpg -resize 512x512 atlas/cluster_4_M27.jpg
+atlas/cluster_2_M102_M51_M13_M3.jpg: messier/M102.jpg messier/M51.jpg messier/M13.jpg messier/M3.jpg
+$(OUTPUT_DIR)/temp/M102_cropped.jpg: messier/M102.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M102 (5.2 x 2.3 arcmin)"
+	@magick messier/M102.jpg -gravity center -extent 614x271 \
+		-bordercolor black -border 2 \
+		-resize 512x226 $(OUTPUT_DIR)/temp/M102_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M51_cropped.jpg: messier/M51.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M51 (11.2 x 6.9 arcmin)"
+	@magick messier/M51.jpg -gravity center -extent 614x378 \
+		-bordercolor black -border 2 \
+		-resize 512x315 $(OUTPUT_DIR)/temp/M51_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M13_cropped.jpg: messier/M13.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M13 (20.0 x 20.0 arcmin)"
+	@magick messier/M13.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M13_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M3_cropped.jpg: messier/M3.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M3 (18.0 x 18.0 arcmin)"
+	@magick messier/M3.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M3_cropped.jpg
+
+atlas/cluster_2_M102_M51_M13_M3.jpg: $(OUTPUT_DIR)/temp/M102_cropped.jpg $(OUTPUT_DIR)/temp/M51_cropped.jpg $(OUTPUT_DIR)/temp/M13_cropped.jpg $(OUTPUT_DIR)/temp/M3_cropped.jpg
+	@echo "Creating atlas for cluster 2 (M102, M51, M13, M3)"
+	@montage $(OUTPUT_DIR)/temp/M102_cropped.jpg $(OUTPUT_DIR)/temp/M51_cropped.jpg $(OUTPUT_DIR)/temp/M13_cropped.jpg $(OUTPUT_DIR)/temp/M3_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_2_M102_M51_M13_M3.jpg
+atlas/cluster_1_M37_M36_M35_M1.jpg: messier/M37.jpg messier/M36.jpg messier/M35.jpg messier/M1.jpg
+$(OUTPUT_DIR)/temp/M37_cropped.jpg: messier/M37.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M37 (24.0 x 24.0 arcmin)"
+	@magick messier/M37.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M37_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M36_cropped.jpg: messier/M36.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M36 (12.0 x 12.0 arcmin)"
+	@magick messier/M36.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M36_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M35_cropped.jpg: messier/M35.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M35 (28.0 x 28.0 arcmin)"
+	@magick messier/M35.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M35_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M1_cropped.jpg: messier/M1.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M1 (6.0 x 4.0 arcmin)"
+	@magick messier/M1.jpg -gravity center -extent 614x409 \
+		-bordercolor black -border 2 \
+		-resize 512x341 $(OUTPUT_DIR)/temp/M1_cropped.jpg
+
+atlas/cluster_1_M37_M36_M35_M1.jpg: $(OUTPUT_DIR)/temp/M37_cropped.jpg $(OUTPUT_DIR)/temp/M36_cropped.jpg $(OUTPUT_DIR)/temp/M35_cropped.jpg $(OUTPUT_DIR)/temp/M1_cropped.jpg
+	@echo "Creating atlas for cluster 1 (M37, M36, M35, M1)"
+	@montage $(OUTPUT_DIR)/temp/M37_cropped.jpg $(OUTPUT_DIR)/temp/M36_cropped.jpg $(OUTPUT_DIR)/temp/M35_cropped.jpg $(OUTPUT_DIR)/temp/M1_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_1_M37_M36_M35_M1.jpg
+atlas/cluster_3_M17_M16.jpg: messier/M17.jpg messier/M16.jpg
+$(OUTPUT_DIR)/temp/M17_cropped.jpg: messier/M17.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M17 (11.0 x 11.0 arcmin)"
+	@magick messier/M17.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M17_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M16_cropped.jpg: messier/M16.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M16 (35.0 x 28.0 arcmin)"
+	@magick messier/M16.jpg -gravity center -extent 614x490 \
+		-bordercolor black -border 2 \
+		-resize 512x409 $(OUTPUT_DIR)/temp/M16_cropped.jpg
+
+atlas/cluster_3_M17_M16.jpg: $(OUTPUT_DIR)/temp/M17_cropped.jpg $(OUTPUT_DIR)/temp/M16_cropped.jpg
+	@echo "Creating atlas for cluster 3 (M17, M16)"
+	@montage $(OUTPUT_DIR)/temp/M17_cropped.jpg $(OUTPUT_DIR)/temp/M16_cropped.jpg -tile 2x1 -geometry 512x512+0+0 -background black atlas/cluster_3_M17_M16.jpg
+atlas/cluster_6_M78_M45_M38.jpg: messier/M78.jpg messier/M45.jpg messier/M38.jpg
+$(OUTPUT_DIR)/temp/M78_cropped.jpg: messier/M78.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M78 (8.0 x 6.0 arcmin)"
+	@magick messier/M78.jpg -gravity center -extent 614x460 \
+		-bordercolor black -border 2 \
+		-resize 512x384 $(OUTPUT_DIR)/temp/M78_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M45_cropped.jpg: messier/M45.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M45 (110.0 x 110.0 arcmin)"
+	@magick messier/M45.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M45_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M38_cropped.jpg: messier/M38.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M38 (21.0 x 21.0 arcmin)"
+	@magick messier/M38.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M38_cropped.jpg
+
+atlas/cluster_6_M78_M45_M38.jpg: $(OUTPUT_DIR)/temp/M78_cropped.jpg $(OUTPUT_DIR)/temp/M45_cropped.jpg $(OUTPUT_DIR)/temp/M38_cropped.jpg
+	@echo "Creating atlas for cluster 6 (M78, M45, M38)"
+	@montage $(OUTPUT_DIR)/temp/M78_cropped.jpg $(OUTPUT_DIR)/temp/M45_cropped.jpg $(OUTPUT_DIR)/temp/M38_cropped.jpg null: -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_6_M78_M45_M38.jpg
+atlas/cluster_7_M97_M82_M81_M40.jpg: messier/M97.jpg messier/M82.jpg messier/M81.jpg messier/M40.jpg
+$(OUTPUT_DIR)/temp/M97_cropped.jpg: messier/M97.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M97 (3.4 x 3.3 arcmin)"
+	@magick messier/M97.jpg -gravity center -extent 614x595 \
+		-bordercolor black -border 2 \
+		-resize 512x496 $(OUTPUT_DIR)/temp/M97_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M82_cropped.jpg: messier/M82.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M82 (11.2 x 4.3 arcmin)"
+	@magick messier/M82.jpg -gravity center -extent 614x235 \
+		-bordercolor black -border 2 \
+		-resize 512x196 $(OUTPUT_DIR)/temp/M82_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M81_cropped.jpg: messier/M81.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M81 (26.9 x 14.1 arcmin)"
+	@magick messier/M81.jpg -gravity center -extent 614x321 \
+		-bordercolor black -border 2 \
+		-resize 512x268 $(OUTPUT_DIR)/temp/M81_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M40_cropped.jpg: messier/M40.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M40 (0.8 x 0.8 arcmin)"
+	@magick messier/M40.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M40_cropped.jpg
+
+atlas/cluster_7_M97_M82_M81_M40.jpg: $(OUTPUT_DIR)/temp/M97_cropped.jpg $(OUTPUT_DIR)/temp/M82_cropped.jpg $(OUTPUT_DIR)/temp/M81_cropped.jpg $(OUTPUT_DIR)/temp/M40_cropped.jpg
+	@echo "Creating atlas for cluster 7 (M97, M82, M81, M40)"
+	@montage $(OUTPUT_DIR)/temp/M97_cropped.jpg $(OUTPUT_DIR)/temp/M82_cropped.jpg $(OUTPUT_DIR)/temp/M81_cropped.jpg $(OUTPUT_DIR)/temp/M40_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_7_M97_M82_M81_M40.jpg
+atlas/cluster_8_M46_M43_M42_M41.jpg: messier/M46.jpg messier/M43.jpg messier/M42.jpg messier/M41.jpg
+$(OUTPUT_DIR)/temp/M46_cropped.jpg: messier/M46.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M46 (27.0 x 27.0 arcmin)"
+	@magick messier/M46.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M46_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M43_cropped.jpg: messier/M43.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M43 (20.0 x 15.0 arcmin)"
+	@magick messier/M43.jpg -gravity center -extent 614x460 \
+		-bordercolor black -border 2 \
+		-resize 512x384 $(OUTPUT_DIR)/temp/M43_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M42_cropped.jpg: messier/M42.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M42 (85.0 x 60.0 arcmin)"
+	@magick messier/M42.jpg -gravity center -extent 614x433 \
+		-bordercolor black -border 2 \
+		-resize 512x361 $(OUTPUT_DIR)/temp/M42_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M41_cropped.jpg: messier/M41.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M41 (38.0 x 38.0 arcmin)"
+	@magick messier/M41.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M41_cropped.jpg
+
+atlas/cluster_8_M46_M43_M42_M41.jpg: $(OUTPUT_DIR)/temp/M46_cropped.jpg $(OUTPUT_DIR)/temp/M43_cropped.jpg $(OUTPUT_DIR)/temp/M42_cropped.jpg $(OUTPUT_DIR)/temp/M41_cropped.jpg
+	@echo "Creating atlas for cluster 8 (M46, M43, M42, M41)"
+	@montage $(OUTPUT_DIR)/temp/M46_cropped.jpg $(OUTPUT_DIR)/temp/M43_cropped.jpg $(OUTPUT_DIR)/temp/M42_cropped.jpg $(OUTPUT_DIR)/temp/M41_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_8_M46_M43_M42_M41.jpg
+atlas/cluster_9_M50_M48_M47_M44.jpg: messier/M50.jpg messier/M48.jpg messier/M47.jpg messier/M44.jpg
+$(OUTPUT_DIR)/temp/M50_cropped.jpg: messier/M50.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M50 (16.0 x 16.0 arcmin)"
+	@magick messier/M50.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M50_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M48_cropped.jpg: messier/M48.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M48 (54.0 x 54.0 arcmin)"
+	@magick messier/M48.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M48_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M47_cropped.jpg: messier/M47.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M47 (30.0 x 30.0 arcmin)"
+	@magick messier/M47.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M47_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M44_cropped.jpg: messier/M44.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M44 (95.0 x 95.0 arcmin)"
+	@magick messier/M44.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M44_cropped.jpg
+
+atlas/cluster_9_M50_M48_M47_M44.jpg: $(OUTPUT_DIR)/temp/M50_cropped.jpg $(OUTPUT_DIR)/temp/M48_cropped.jpg $(OUTPUT_DIR)/temp/M47_cropped.jpg $(OUTPUT_DIR)/temp/M44_cropped.jpg
+	@echo "Creating atlas for cluster 9 (M50, M48, M47, M44)"
+	@montage $(OUTPUT_DIR)/temp/M50_cropped.jpg $(OUTPUT_DIR)/temp/M48_cropped.jpg $(OUTPUT_DIR)/temp/M47_cropped.jpg $(OUTPUT_DIR)/temp/M44_cropped.jpg -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_9_M50_M48_M47_M44.jpg
+atlas/cluster_11_M105_M95_M67.jpg: messier/M105.jpg messier/M95.jpg messier/M67.jpg
+$(OUTPUT_DIR)/temp/M105_cropped.jpg: messier/M105.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M105 (5.4 x 4.8 arcmin)"
+	@magick messier/M105.jpg -gravity center -extent 614x546 \
+		-bordercolor black -border 2 \
+		-resize 512x455 $(OUTPUT_DIR)/temp/M105_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M95_cropped.jpg: messier/M95.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M95 (7.4 x 5.0 arcmin)"
+	@magick messier/M95.jpg -gravity center -extent 614x414 \
+		-bordercolor black -border 2 \
+		-resize 512x345 $(OUTPUT_DIR)/temp/M95_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M67_cropped.jpg: messier/M67.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M67 (30.0 x 30.0 arcmin)"
+	@magick messier/M67.jpg -gravity center -extent 614x614 \
+		-bordercolor black -border 2 \
+		-resize 512x512 $(OUTPUT_DIR)/temp/M67_cropped.jpg
+
+atlas/cluster_11_M105_M95_M67.jpg: $(OUTPUT_DIR)/temp/M105_cropped.jpg $(OUTPUT_DIR)/temp/M95_cropped.jpg $(OUTPUT_DIR)/temp/M67_cropped.jpg
+	@echo "Creating atlas for cluster 11 (M105, M95, M67)"
+	@montage $(OUTPUT_DIR)/temp/M105_cropped.jpg $(OUTPUT_DIR)/temp/M95_cropped.jpg $(OUTPUT_DIR)/temp/M67_cropped.jpg null: -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_11_M105_M95_M67.jpg
+atlas/cluster_12_M110_M76_M74.jpg: messier/M110.jpg messier/M76.jpg messier/M74.jpg
+$(OUTPUT_DIR)/temp/M110_cropped.jpg: messier/M110.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M110 (21.9 x 11.0 arcmin)"
+	@magick messier/M110.jpg -gravity center -extent 614x308 \
+		-bordercolor black -border 2 \
+		-resize 512x257 $(OUTPUT_DIR)/temp/M110_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M76_cropped.jpg: messier/M76.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M76 (2.7 x 1.8 arcmin)"
+	@magick messier/M76.jpg -gravity center -extent 614x409 \
+		-bordercolor black -border 2 \
+		-resize 512x341 $(OUTPUT_DIR)/temp/M76_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M74_cropped.jpg: messier/M74.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M74 (10.2 x 9.5 arcmin)"
+	@magick messier/M74.jpg -gravity center -extent 614x571 \
+		-bordercolor black -border 2 \
+		-resize 512x476 $(OUTPUT_DIR)/temp/M74_cropped.jpg
+
+atlas/cluster_12_M110_M76_M74.jpg: $(OUTPUT_DIR)/temp/M110_cropped.jpg $(OUTPUT_DIR)/temp/M76_cropped.jpg $(OUTPUT_DIR)/temp/M74_cropped.jpg
+	@echo "Creating atlas for cluster 12 (M110, M76, M74)"
+	@montage $(OUTPUT_DIR)/temp/M110_cropped.jpg $(OUTPUT_DIR)/temp/M76_cropped.jpg $(OUTPUT_DIR)/temp/M74_cropped.jpg null: -tile 2x2 -geometry 512x512+0+0 -background black atlas/cluster_12_M110_M76_M74.jpg
+atlas/cluster_14_M106_M100.jpg: messier/M106.jpg messier/M100.jpg
+$(OUTPUT_DIR)/temp/M106_cropped.jpg: messier/M106.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M106 (18.6 x 7.6 arcmin)"
+	@magick messier/M106.jpg -gravity center -extent 614x250 \
+		-bordercolor black -border 2 \
+		-resize 512x209 $(OUTPUT_DIR)/temp/M106_cropped.jpg
+
+$(OUTPUT_DIR)/temp/M100_cropped.jpg: messier/M100.jpg $(OUTPUT_DIR)/temp
+	@echo "Processing M100 (7.4 x 6.3 arcmin)"
+	@magick messier/M100.jpg -gravity center -extent 614x522 \
+		-bordercolor black -border 2 \
+		-resize 512x435 $(OUTPUT_DIR)/temp/M100_cropped.jpg
+
+atlas/cluster_14_M106_M100.jpg: $(OUTPUT_DIR)/temp/M106_cropped.jpg $(OUTPUT_DIR)/temp/M100_cropped.jpg
+	@echo "Creating atlas for cluster 14 (M106, M100)"
+	@montage $(OUTPUT_DIR)/temp/M106_cropped.jpg $(OUTPUT_DIR)/temp/M100_cropped.jpg -tile 2x1 -geometry 512x512+0+0 -background black atlas/cluster_14_M106_M100.jpg
+.PHONY: all clean
+
+all: $(OUTPUT_DIR) atlas/cluster_16_M109_M108.jpg atlas/cluster_15_M103.jpg atlas/cluster_13_M77.jpg atlas/cluster_10_M66_M65_M63_M61.jpg atlas/cluster_5_M52_M34_M32_M31.jpg atlas/cluster_4_M27.jpg atlas/cluster_2_M102_M51_M13_M3.jpg atlas/cluster_1_M37_M36_M35_M1.jpg atlas/cluster_3_M17_M16.jpg atlas/cluster_6_M78_M45_M38.jpg atlas/cluster_7_M97_M82_M81_M40.jpg atlas/cluster_8_M46_M43_M42_M41.jpg atlas/cluster_9_M50_M48_M47_M44.jpg atlas/cluster_11_M105_M95_M67.jpg atlas/cluster_12_M110_M76_M74.jpg atlas/cluster_14_M106_M100.jpg
+
+clean:
+	@echo "Cleaning atlas images"
+	@rm -f atlas/cluster_16_M109_M108.jpg atlas/cluster_15_M103.jpg atlas/cluster_13_M77.jpg atlas/cluster_10_M66_M65_M63_M61.jpg atlas/cluster_5_M52_M34_M32_M31.jpg atlas/cluster_4_M27.jpg atlas/cluster_2_M102_M51_M13_M3.jpg atlas/cluster_1_M37_M36_M35_M1.jpg atlas/cluster_3_M17_M16.jpg atlas/cluster_6_M78_M45_M38.jpg atlas/cluster_7_M97_M82_M81_M40.jpg atlas/cluster_8_M46_M43_M42_M41.jpg atlas/cluster_9_M50_M48_M47_M44.jpg atlas/cluster_11_M105_M95_M67.jpg atlas/cluster_12_M110_M76_M74.jpg atlas/cluster_14_M106_M100.jpg
+	@echo "Cleaning temporary files"
+	@rm -rf $(OUTPUT_DIR)/temp
+
+# Code to update messier_objects in webgldemo.ml:
+#
+# let messier_objects =\
+   [\
+     (* Cluster 16 *)\
+     ("Cluster 16", 173.64, 54.52, 4.29, 16, "cluster_16_M109_M108.jpg");\
+     (* Cluster 15 *)\
+     ("Cluster 15", 23.34, 60.66, 0.50, 15, "cluster_15_M103.jpg");\
+     (* Cluster 13 *)\
+     ("Cluster 13", 40.67, -0.01, 0.50, 13, "cluster_13_M77.jpg");\
+     (* Cluster 10 *)\
+     ("Cluster 10", 181.02, 18.15, 34.02, 10, "cluster_10_M66_M65_M63_M61.jpg");\
+     (* Cluster 5 *)\
+     ("Cluster 5", 13.15, 46.61, 23.70, 5, "cluster_5_M52_M34_M32_M31.jpg");\
+     (* Cluster 4 *)\
+     ("Cluster 4", 299.90, 22.72, 0.50, 4, "cluster_4_M27.jpg");\
+     (* Cluster 2 *)\
+     ("Cluster 2", 221.08, 41.95, 27.92, 2, "cluster_2_M102_M51_M13_M3.jpg");\
+     (* Cluster 1 *)\
+     ("Cluster 1", 87.01, 28.26, 8.34, 1, "cluster_1_M37_M36_M35_M1.jpg");\
+     (* Cluster 3 *)\
+     ("Cluster 3", 274.94, -14.98, 1.46, 3, "cluster_3_M17_M16.jpg");\
+     (* Cluster 6 *)\
+     ("Cluster 6", 75.23, 20.01, 27.44, 6, "cluster_6_M78_M45_M38.jpg");\
+     (* Cluster 7 *)\
+     ("Cluster 7", 162.95, 62.96, 14.48, 7, "cluster_7_M97_M82_M81_M40.jpg");\
+     (* Cluster 8 *)\
+     ("Cluster 8", 96.12, -11.56, 22.92, 8, "cluster_8_M46_M43_M42_M41.jpg");\
+     (* Cluster 9 *)\
+     ("Cluster 9", 118.33, -2.23, 29.64, 9, "cluster_9_M50_M48_M47_M44.jpg");\
+     (* Cluster 11 *)\
+     ("Cluster 11", 152.02, 12.03, 22.51, 11, "cluster_11_M105_M95_M67.jpg");\
+     (* Cluster 12 *)\
+     ("Cluster 12", 19.96, 36.35, 25.08, 12, "cluster_12_M110_M76_M74.jpg");\
+     (* Cluster 14 *)\
+     ("Cluster 14", 185.23, 31.56, 18.90, 14, "cluster_14_M106_M100.jpg")\
+   ]
