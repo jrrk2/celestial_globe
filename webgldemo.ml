@@ -1,3 +1,4 @@
+open Messier_data
 open Js_of_ocaml
 open Js_of_ocaml_lwt
 open Lwt
@@ -198,59 +199,11 @@ let create_celestial_fragment_shader num_textures =
     }
   " texture_uniform_declarations coord_uniform_declarations texture_sampling_code
 
-let imaged = [
-"M1";
-"M100";
-"M102";
-"M103";
-"M105";
-"M106";
-"M108";
-"M109";
-"M110";
-"M13";
-"M16";
-"M17";
-"M27";
-"M3";
-"M31";
-"M32";
-"M34";
-"M35";
-"M36";
-"M37";
-"M38";
-"M40";
-"M41";
-"M42";
-"M43";
-"M44";
-"M45";
-"M46";
-"M47";
-"M48";
-"M50";
-"M51";
-"M52";
-"M61";
-"M63";
-"M65";
-"M66";
-"M67";
-"M74";
-"M76";
-"M77";
-"M78";
-"M81";
-"M82";
-"M95";
-"M97";
-]
-
+let compare_siz {size_arcmin=(w1,h1);_} {size_arcmin=(w2,h2);_} = let diff = w1*.h1 -. w2*.h2 in if diff > 0. then -1 else if diff < 0. then 1 else 0
+  
 (* Sample Messier object data - you should replace this with your actual data *)
 let messier_objects =
   let lst = ref [] in
-  let open Messier_data in
   List.iter (fun { 
     id;
     name;
@@ -269,7 +222,17 @@ let messier_objects =
     } ->
   let siz = max (fst size_arcmin) (snd size_arcmin) in
   let image = List.mem name imaged in
-  if object_type = Galaxy && List.length !lst < 16 && image then lst := (name^" "^(match common_name with Some txt -> txt | None -> ""), ra_hours *. 15.0, dec_degrees, 1.0, id ) :: !lst ) Messier_data.catalog;
+  let active = true in
+  let active1 = match object_type with Planetary_Nebula | Nebula -> true | _ -> false in
+  let active2 = match object_type with Galaxy | Galaxy_Cluster -> true | _ -> false in
+  let active3 = match object_type with Globular_Cluster | Open_Cluster -> true | _ -> false in
+  let active4 = match constellation with "Canes Venatici" -> true | _ -> false in
+  let active5 = match constellation with "Taurus" -> true | _ -> false in
+  if active2 && List.length !lst < 16 && image then
+    begin
+    lst := (name^" "^(match common_name with Some txt -> txt | None -> ""), ra_hours *. 15.0, dec_degrees, 1.0, id ) :: !lst;
+    debug "%s" name;
+    end) (List.sort compare_siz catalog);
   !lst
 
   (* Sample format: Name, RA (degrees), DEC (degrees), Angular Size (we'll magnify this)
