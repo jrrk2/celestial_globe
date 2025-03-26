@@ -135,9 +135,9 @@ let create_celestial_fragment_shader num_textures =
               v = 0.3 + (v * 0.4); // Use middle 40%% vertically (30%% to 70%%)
               
               // Calculate a weight based on distance from center
-              // Higher weight near the center, lower at the edges
+              // Using a smoother falloff function to prevent flickering at edges
               float distFromCenter = angleDeg%d / u_texPos%d.z; // 0.0 (center) to 1.0 (edge)
-              float weight = 1.0 - distFromCenter;
+              float weight = smoothstep(1.0, 0.0, distFromCenter); // Smoother transition
               
               // Sample texture and add weighted contribution
               vec3 texColor = texture2D(u_texture%d, vec2(u, v)).rgb;
@@ -148,19 +148,24 @@ let create_celestial_fragment_shader num_textures =
         ));
         
         (* Normalize the accumulated colors if we have any weights *)
-        "if (totalWeight > 0.0) {";
+        "if (totalWeight > 0.001) { // Using a threshold to avoid division by very small numbers";
         "  textureColor = textureColor / totalWeight;";
+        "  // Ensure color is in valid range";
+        "  textureColor = clamp(textureColor, 0.0, 1.0);";
         "} else {";
-        "  // Create a better looking starry background";
+        "  // Create a better looking, STABLE starry background";
         "  vec3 deepSpace = vec3(0.01, 0.01, 0.04); // Very dark blue base";
         "  textureColor = deepSpace;";
-        "  ";
         "}";
       ]
   in
   
   Printf.sprintf "
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
     precision mediump float;
+    #endif
     
     varying vec3 v_normal;
     varying vec2 v_texcoord;
@@ -1214,20 +1219,7 @@ let () =
   debug "Initializing webgldemo";
   try
     setup_texture_debugging ();
-
-    (* Choose which mode to start in *)
-    let globe_mode = "celestial" in (* or "standard" *)
-    
-    match globe_mode with
-    | "standard" ->
-        debug "Calling standard globe";
-        Lwt.async (fun () -> start "http://localhost:9000/earth.jpg")
-    | "celestial" ->
-        debug "Calling celestial globe";
-        let texture_base_url = "http://localhost:9000/messier" in
-        debug "Using texture base URL: %s" texture_base_url;
-        Lwt.async (fun () -> start_celestial_globe texture_base_url)
-    | _ ->
-        error "Unknown globe mode: %s" globe_mode
+    let texture_base_url = "http://35.208.209.21/messier" in
+    Lwt.async (fun () -> start_celestial_globe texture_base_url)
   with e ->
     error "Uncaught exception: %s" (Printexc.to_string e)
