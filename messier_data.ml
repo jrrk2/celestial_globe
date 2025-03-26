@@ -120,11 +120,11 @@ type messier_object = {
 }
 
 let imaged = [
-"M1", false;
-"M3", false;
-"M13", false;
-"M16", false;
-"M17", false;
+"M1", true;
+"M3", true;
+"M13", true;
+"M16", true;
+"M17", true;
 "M27", true;
 "M31", false;
 "M32", false;
@@ -138,7 +138,7 @@ let imaged = [
 "M42", false;
 "M43", false;
 "M44", false;
-"M45", false;
+"M45", true;
 "M46", false;
 "M47", false;
 "M48", false;
@@ -150,11 +150,11 @@ let imaged = [
 "M65", false;
 "M66", false;
 "M67", false;
-"M74", false;
+"M74", true;
 "M76", false;
 "M77", false;
 "M78", false;
-"M81", false;
+"M81", true;
 "M82", false;
 "M95", false;
 "M97", false;
@@ -163,9 +163,9 @@ let imaged = [
 "M102", false;
 "M103", false;
 "M105", false;
-"M106", false;
+"M106", true;
 "M108", false;
-"M109", false;
+"M109", true;
 "M110", false;
 ]
 

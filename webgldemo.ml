@@ -153,13 +153,6 @@ let create_celestial_fragment_shader num_textures =
         "} else {";
         "  // Use background star field if no textures apply";
         "  textureColor = vec3(0.0, 0.0, 0.1);";
-        "  ";
-        "  // Add stars based on position";
-        "  float starValue = fract(sin(dot(normalize(v_position).xy, vec2(12.9898, 78.233))) * 43758.5453);";
-        "  if (starValue > 0.995) {";
-        "    float starBrightness = (starValue - 0.995) * 200.0;";
-        "    textureColor = vec3(starBrightness);";
-        "  }";
         "}";
       ]
   in
@@ -708,7 +701,7 @@ let start_celestial_globe texture_base_url =
   log_texture_msg `Debug "Loading celestial textures...";
   
   (* Magnification factor to make objects more visible *)
-  let magnification = 10.0 in
+  let magnification = 12.0 in
   
   let texture_infos = List.mapi (fun i (name, ra, dec, size, id) ->
     let url = Printf.sprintf "%s/M%d.jpg" texture_base_url id in
@@ -1219,20 +1212,7 @@ let () =
   debug "Initializing webgldemo";
   try
     setup_texture_debugging ();
-
-    (* Choose which mode to start in *)
-    let globe_mode = "celestial" in (* or "standard" *)
-    
-    match globe_mode with
-    | "standard" ->
-        debug "Calling standard globe";
-        Lwt.async (fun () -> start "http://localhost:9000/earth.jpg")
-    | "celestial" ->
-        debug "Calling celestial globe";
-        let texture_base_url = "http://localhost:9000/messier" in
-        debug "Using texture base URL: %s" texture_base_url;
-        Lwt.async (fun () -> start_celestial_globe texture_base_url)
-    | _ ->
-        error "Unknown globe mode: %s" globe_mode
+    let texture_base_url = "https://kimmitt.uk/celestial_globe/messier" in
+    Lwt.async (fun () -> start_celestial_globe texture_base_url)
   with e ->
     error "Uncaught exception: %s" (Printexc.to_string e)
