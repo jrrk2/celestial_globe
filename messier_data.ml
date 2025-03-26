@@ -135,10 +135,10 @@ let imaged = [
 "M38", false;
 "M40", false;
 "M41", false;
-"M42", false;
+"M42", true;
 "M43", false;
 "M44", false;
-"M45", false;
+"M45", true;
 "M46", false;
 "M47", false;
 "M48", false;
@@ -150,11 +150,11 @@ let imaged = [
 "M65", false;
 "M66", false;
 "M67", false;
-"M74", false;
+"M74", true;
 "M76", false;
 "M77", false;
 "M78", false;
-"M81", false;
+"M81", true;
 "M82", false;
 "M95", false;
 "M97", false;
@@ -165,7 +165,7 @@ let imaged = [
 "M105", false;
 "M106", false;
 "M108", false;
-"M109", false;
+"M109", true;
 "M110", false;
 ]
 

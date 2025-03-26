@@ -151,15 +151,10 @@ let create_celestial_fragment_shader num_textures =
         "if (totalWeight > 0.0) {";
         "  textureColor = textureColor / totalWeight;";
         "} else {";
-        "  // Use background star field if no textures apply";
-        "  textureColor = vec3(0.0, 0.0, 0.1);";
+        "  // Create a better looking starry background";
+        "  vec3 deepSpace = vec3(0.01, 0.01, 0.04); // Very dark blue base";
+        "  textureColor = deepSpace;";
         "  ";
-        "  // Add stars based on position";
-        "  float starValue = fract(sin(dot(normalize(v_position).xy, vec2(12.9898, 78.233))) * 43758.5453);";
-        "  if (starValue > 0.995) {";
-        "    float starBrightness = (starValue - 0.995) * 200.0;";
-        "    textureColor = vec3(starBrightness);";
-        "  }";
         "}";
       ]
   in
