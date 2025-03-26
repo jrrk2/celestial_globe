@@ -1,5 +1,79 @@
 (* messier_data.ml - Generated from messier_array format *)
 
+type constellation =
+| Andromeda
+| Aquarius
+| Auriga
+| Cancer
+| Canes_Venatici
+| Canis_Major
+| Capricornus
+| Cassiopeia
+| Cetus
+| Coma_Berenices
+| Cygnus
+| Draco
+| Gemini
+| Hercules
+| Hydra
+| Leo
+| Lepus
+| Lyra
+| Monoceros
+| Ophiuchus
+| Orion
+| Pegasus
+| Perseus
+| Pisces
+| Puppis
+| Sagitta
+| Sagittarius
+| Scorpius
+| Scutum
+| Serpens
+| Taurus
+| Triangulum
+| Ursa_Major
+| Virgo
+| Vulpecula
+
+let constellation_to_string = function
+| Andromeda -> "Andromeda"
+| Aquarius -> "Aquarius"
+| Auriga -> "Auriga"
+| Cancer -> "Cancer"
+| Canes_Venatici -> "Canes_Venatici"
+| Canis_Major -> "Canis_Major"
+| Capricornus -> "Capricornus"
+| Cassiopeia -> "Cassiopeia"
+| Cetus -> "Cetus"
+| Coma_Berenices -> "Coma_Berenices"
+| Cygnus -> "Cygnus"
+| Draco -> "Draco"
+| Gemini -> "Gemini"
+| Hercules -> "Hercules"
+| Hydra -> "Hydra"
+| Leo -> "Leo"
+| Lepus -> "Lepus"
+| Lyra -> "Lyra"
+| Monoceros -> "Monoceros"
+| Ophiuchus -> "Ophiuchus"
+| Orion -> "Orion"
+| Pegasus -> "Pegasus"
+| Perseus -> "Perseus"
+| Pisces -> "Pisces"
+| Puppis -> "Puppis"
+| Sagitta -> "Sagitta"
+| Sagittarius -> "Sagittarius"
+| Scorpius -> "Scorpius"
+| Scutum -> "Scutum"
+| Serpens -> "Serpens"
+| Taurus -> "Taurus"
+| Triangulum -> "Triangulum"
+| Ursa_Major -> "Ursa_Major"
+| Virgo -> "Virgo"
+| Vulpecula -> "Vulpecula"
+
 (* Messier Object Type *)
 type object_type =
   | Globular_Cluster
@@ -33,7 +107,7 @@ type messier_object = {
   name: string;
   common_name: string option;
   object_type: object_type;
-  constellation: string;
+  constellation: constellation;
   ra_hours: float;
   dec_degrees: float;
   magnitude: float;
@@ -46,52 +120,53 @@ type messier_object = {
 }
 
 let imaged = [
-"M1";
-"M100";
-"M102";
-"M103";
-"M105";
-"M106";
-"M108";
-"M109";
-"M110";
-"M13";
-"M16";
-"M17";
-"M27";
-"M3";
-"M31";
-"M32";
-"M34";
-"M35";
-"M36";
-"M37";
-"M38";
-"M40";
-"M41";
-"M42";
-"M43";
-"M44";
-"M45";
-"M46";
-"M47";
-"M48";
-"M50";
-"M51";
-"M52";
-"M61";
-"M63";
-"M65";
-"M66";
-"M67";
-"M74";
-"M76";
-"M77";
-"M78";
-"M81";
-"M82";
-"M95";
-"M97";
+"M1", false;
+"M3", false;
+"M13", false;
+"M16", false;
+"M17", false;
+"M27", true;
+"M31", false;
+"M32", false;
+"M34", false;
+"M35", false;
+"M36", false;
+"M37", false;
+"M38", false;
+"M40", false;
+"M41", false;
+"M42", false;
+"M43", false;
+"M44", false;
+"M45", false;
+"M46", false;
+"M47", false;
+"M48", false;
+"M50", false;
+"M51", true;
+"M52", false;
+"M61", false;
+"M63", false;
+"M65", false;
+"M66", false;
+"M67", false;
+"M74", false;
+"M76", false;
+"M77", false;
+"M78", false;
+"M81", false;
+"M82", false;
+"M95", false;
+"M97", false;
+"M100", false;
+"M101", true;
+"M102", false;
+"M103", false;
+"M105", false;
+"M106", false;
+"M108", false;
+"M109", false;
+"M110", false;
 ]
 
 (* Complete Messier Catalog Data *)
@@ -101,7 +176,7 @@ let catalog = [
     name = "M1";
     common_name = Some "Crab Nebula";
     object_type = Supernova_Remnant;
-    constellation = "Taurus";
+    constellation = Taurus;
     ra_hours = 5.575556;
     dec_degrees = 22.013333;
     magnitude = 20.0;
@@ -117,7 +192,7 @@ let catalog = [
     name = "M2";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Aquarius";
+    constellation = Aquarius;
     ra_hours = 21.557506;
     dec_degrees = -0.823250;
     magnitude = 6.2;
@@ -133,7 +208,7 @@ let catalog = [
     name = "M3";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Canes Venatici";
+    constellation = Canes_Venatici;
     ra_hours = 13.703228;
     dec_degrees = 28.377278;
     magnitude = 6.4;
@@ -149,7 +224,7 @@ let catalog = [
     name = "M4";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Scorpius";
+    constellation = Scorpius;
     ra_hours = 16.393117;
     dec_degrees = -26.525750;
     magnitude = 20.0;
@@ -165,7 +240,7 @@ let catalog = [
     name = "M5";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Serpens";
+    constellation = Serpens;
     ra_hours = 15.309228;
     dec_degrees = 2.081028;
     magnitude = 6.0;
@@ -181,7 +256,7 @@ let catalog = [
     name = "M6";
     common_name = Some "Butterfly Cluster";
     object_type = Open_Cluster;
-    constellation = "Scorpius";
+    constellation = Scorpius;
     ra_hours = 17.671389;
     dec_degrees = -32.241667;
     magnitude = 20.0;
@@ -197,7 +272,7 @@ let catalog = [
     name = "M7";
     common_name = Some "Ptolemy's Cluster";
     object_type = Open_Cluster;
-    constellation = "Scorpius";
+    constellation = Scorpius;
     ra_hours = 17.896389;
     dec_degrees = -34.841667;
     magnitude = 20.0;
@@ -213,7 +288,7 @@ let catalog = [
     name = "M8";
     common_name = Some "Lagoon Nebula";
     object_type = Nebula;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.060278;
     dec_degrees = -24.386667;
     magnitude = 20.0;
@@ -229,7 +304,7 @@ let catalog = [
     name = "M9";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 17.319939;
     dec_degrees = -18.516250;
     magnitude = 8.4;
@@ -245,7 +320,7 @@ let catalog = [
     name = "M10";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 16.952514;
     dec_degrees = -4.100306;
     magnitude = 5.0;
@@ -261,7 +336,7 @@ let catalog = [
     name = "M11";
     common_name = Some "Wild Duck Cluster";
     object_type = Open_Cluster;
-    constellation = "Scutum";
+    constellation = Scutum;
     ra_hours = 18.851111;
     dec_degrees = -6.271667;
     magnitude = 5.8;
@@ -277,7 +352,7 @@ let catalog = [
     name = "M12";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 16.787272;
     dec_degrees = -1.948528;
     magnitude = 6.1;
@@ -293,7 +368,7 @@ let catalog = [
     name = "M13";
     common_name = Some "Hercules Globular Cluster";
     object_type = Globular_Cluster;
-    constellation = "Hercules";
+    constellation = Hercules;
     ra_hours = 16.694898;
     dec_degrees = 36.461319;
     magnitude = 5.8;
@@ -309,7 +384,7 @@ let catalog = [
     name = "M14";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 17.626708;
     dec_degrees = -3.245917;
     magnitude = 5.7;
@@ -325,7 +400,7 @@ let catalog = [
     name = "M15";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Pegasus";
+    constellation = Pegasus;
     ra_hours = 21.499536;
     dec_degrees = 12.167000;
     magnitude = 20.0;
@@ -341,7 +416,7 @@ let catalog = [
     name = "M16";
     common_name = Some "Eagle Nebula";
     object_type = Open_Cluster;
-    constellation = "Serpens";
+    constellation = Serpens;
     ra_hours = 18.312500;
     dec_degrees = -13.791667;
     magnitude = 6.0;
@@ -357,7 +432,7 @@ let catalog = [
     name = "M17";
     common_name = Some "Omega Nebula";
     object_type = Nebula;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.346389;
     dec_degrees = -16.171667;
     magnitude = 20.0;
@@ -373,7 +448,7 @@ let catalog = [
     name = "M18";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.332500;
     dec_degrees = -17.088333;
     magnitude = 20.0;
@@ -389,7 +464,7 @@ let catalog = [
     name = "M19";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 17.043803;
     dec_degrees = -26.267944;
     magnitude = 5.6;
@@ -405,7 +480,7 @@ let catalog = [
     name = "M20";
     common_name = Some "Trifid Nebula";
     object_type = Nebula;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.045000;
     dec_degrees = -22.971667;
     magnitude = 20.0;
@@ -421,7 +496,7 @@ let catalog = [
     name = "M21";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.069167;
     dec_degrees = -22.505000;
     magnitude = 20.0;
@@ -437,7 +512,7 @@ let catalog = [
     name = "M22";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.606650;
     dec_degrees = -23.904750;
     magnitude = 6.2;
@@ -453,7 +528,7 @@ let catalog = [
     name = "M23";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 17.949167;
     dec_degrees = -18.986667;
     magnitude = 20.0;
@@ -469,7 +544,7 @@ let catalog = [
     name = "M24";
     common_name = Some "Sagittarius Star Cloud";
     object_type = Star_Cloud;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.280000;
     dec_degrees = -18.550000;
     magnitude = 20.0;
@@ -485,7 +560,7 @@ let catalog = [
     name = "M25";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.529167;
     dec_degrees = -19.113333;
     magnitude = 20.0;
@@ -501,7 +576,7 @@ let catalog = [
     name = "M26";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Scutum";
+    constellation = Scutum;
     ra_hours = 18.754444;
     dec_degrees = -9.386667;
     magnitude = 8.9;
@@ -517,7 +592,7 @@ let catalog = [
     name = "M27";
     common_name = Some "Dumbbell Nebula";
     object_type = Planetary_Nebula;
-    constellation = "Vulpecula";
+    constellation = Vulpecula;
     ra_hours = 19.993434;
     dec_degrees = 22.721198;
     magnitude = 14.1;
@@ -533,7 +608,7 @@ let catalog = [
     name = "M28";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.409136;
     dec_degrees = -24.869833;
     magnitude = 20.0;
@@ -549,7 +624,7 @@ let catalog = [
     name = "M29";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Cygnus";
+    constellation = Cygnus;
     ra_hours = 20.396111;
     dec_degrees = 38.486667;
     magnitude = 6.6;
@@ -565,7 +640,7 @@ let catalog = [
     name = "M30";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Capricornus";
+    constellation = Capricornus;
     ra_hours = 21.672811;
     dec_degrees = -23.179861;
     magnitude = 7.1;
@@ -581,7 +656,7 @@ let catalog = [
     name = "M31";
     common_name = Some "Andromeda Galaxy";
     object_type = Galaxy;
-    constellation = "Andromeda";
+    constellation = Andromeda;
     ra_hours = 0.712314;
     dec_degrees = 41.268750;
     magnitude = 3.4;
@@ -597,7 +672,7 @@ let catalog = [
     name = "M32";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Andromeda";
+    constellation = Andromeda;
     ra_hours = 0.711618;
     dec_degrees = 40.865169;
     magnitude = 8.1;
@@ -613,7 +688,7 @@ let catalog = [
     name = "M33";
     common_name = Some "Triangulum Galaxy";
     object_type = Galaxy;
-    constellation = "Triangulum";
+    constellation = Triangulum;
     ra_hours = 1.564138;
     dec_degrees = 30.660175;
     magnitude = 5.7;
@@ -629,7 +704,7 @@ let catalog = [
     name = "M34";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Perseus";
+    constellation = Perseus;
     ra_hours = 2.701944;
     dec_degrees = 42.721667;
     magnitude = 20.0;
@@ -645,7 +720,7 @@ let catalog = [
     name = "M35";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Gemini";
+    constellation = Gemini;
     ra_hours = 6.151389;
     dec_degrees = 24.336667;
     magnitude = 20.0;
@@ -661,7 +736,7 @@ let catalog = [
     name = "M36";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Auriga";
+    constellation = Auriga;
     ra_hours = 5.605556;
     dec_degrees = 34.135000;
     magnitude = 6.0;
@@ -677,7 +752,7 @@ let catalog = [
     name = "M37";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Auriga";
+    constellation = Auriga;
     ra_hours = 5.871667;
     dec_degrees = 32.545000;
     magnitude = 5.6;
@@ -693,7 +768,7 @@ let catalog = [
     name = "M38";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Auriga";
+    constellation = Auriga;
     ra_hours = 5.477778;
     dec_degrees = 35.823333;
     magnitude = 6.4;
@@ -709,7 +784,7 @@ let catalog = [
     name = "M39";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Cygnus";
+    constellation = Cygnus;
     ra_hours = 21.525833;
     dec_degrees = 48.246667;
     magnitude = 20.0;
@@ -725,7 +800,7 @@ let catalog = [
     name = "M40";
     common_name = None;
     object_type = Double_Star;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 12.370000;
     dec_degrees = 58.083333;
     magnitude = 20.0;
@@ -741,7 +816,7 @@ let catalog = [
     name = "M41";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Canis Major";
+    constellation = Canis_Major;
     ra_hours = 6.766667;
     dec_degrees = -20.716667;
     magnitude = 4.5;
@@ -757,7 +832,7 @@ let catalog = [
     name = "M42";
     common_name = Some "Orion Nebula";
     object_type = Nebula;
-    constellation = "Orion";
+    constellation = Orion;
     ra_hours = 5.588139;
     dec_degrees = -5.391111;
     magnitude = 20.0;
@@ -773,7 +848,7 @@ let catalog = [
     name = "M43";
     common_name = None;
     object_type = Nebula;
-    constellation = "Orion";
+    constellation = Orion;
     ra_hours = 5.591944;
     dec_degrees = -5.270000;
     magnitude = 20.0;
@@ -789,7 +864,7 @@ let catalog = [
     name = "M44";
     common_name = Some "Beehive Cluster";
     object_type = Open_Cluster;
-    constellation = "Cancer";
+    constellation = Cancer;
     ra_hours = 8.670278;
     dec_degrees = 19.621667;
     magnitude = 20.0;
@@ -805,7 +880,7 @@ let catalog = [
     name = "M45";
     common_name = Some "Pleiades";
     object_type = Open_Cluster;
-    constellation = "Taurus";
+    constellation = Taurus;
     ra_hours = 3.773333;
     dec_degrees = 24.113333;
     magnitude = 20.0;
@@ -821,7 +896,7 @@ let catalog = [
     name = "M46";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Puppis";
+    constellation = Puppis;
     ra_hours = 7.696389;
     dec_degrees = -14.843333;
     magnitude = 20.0;
@@ -837,7 +912,7 @@ let catalog = [
     name = "M47";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Puppis";
+    constellation = Puppis;
     ra_hours = 7.609722;
     dec_degrees = -14.488333;
     magnitude = 20.0;
@@ -853,7 +928,7 @@ let catalog = [
     name = "M48";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Hydra";
+    constellation = Hydra;
     ra_hours = 8.227500;
     dec_degrees = -5.726667;
     magnitude = 20.0;
@@ -869,7 +944,7 @@ let catalog = [
     name = "M49";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.496333;
     dec_degrees = 8.000411;
     magnitude = 12.2;
@@ -885,7 +960,7 @@ let catalog = [
     name = "M50";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Monoceros";
+    constellation = Monoceros;
     ra_hours = 7.046528;
     dec_degrees = -8.337778;
     magnitude = 20.0;
@@ -901,7 +976,7 @@ let catalog = [
     name = "M51";
     common_name = Some "Whirlpool Galaxy";
     object_type = Galaxy;
-    constellation = "Canes Venatici";
+    constellation = Canes_Venatici;
     ra_hours = 13.497972;
     dec_degrees = 47.195258;
     magnitude = 8.4;
@@ -917,7 +992,7 @@ let catalog = [
     name = "M52";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Cassiopeia";
+    constellation = Cassiopeia;
     ra_hours = 23.413056;
     dec_degrees = 61.590000;
     magnitude = 20.0;
@@ -933,7 +1008,7 @@ let catalog = [
     name = "M53";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 13.215347;
     dec_degrees = 18.168167;
     magnitude = 7.8;
@@ -949,7 +1024,7 @@ let catalog = [
     name = "M54";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.917592;
     dec_degrees = -30.479861;
     magnitude = 20.0;
@@ -965,7 +1040,7 @@ let catalog = [
     name = "M55";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 19.666586;
     dec_degrees = -30.964750;
     magnitude = 6.5;
@@ -981,7 +1056,7 @@ let catalog = [
     name = "M56";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Lyra";
+    constellation = Lyra;
     ra_hours = 19.276547;
     dec_degrees = 30.183472;
     magnitude = 20.0;
@@ -997,7 +1072,7 @@ let catalog = [
     name = "M57";
     common_name = Some "Ring Nebula";
     object_type = Planetary_Nebula;
-    constellation = "Lyra";
+    constellation = Lyra;
     ra_hours = 18.893082;
     dec_degrees = 33.029134;
     magnitude = 15.8;
@@ -1013,7 +1088,7 @@ let catalog = [
     name = "M58";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.628777;
     dec_degrees = 11.818089;
     magnitude = 9.7;
@@ -1029,7 +1104,7 @@ let catalog = [
     name = "M59";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.700627;
     dec_degrees = 11.646919;
     magnitude = 20.0;
@@ -1045,7 +1120,7 @@ let catalog = [
     name = "M60";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.727770;
     dec_degrees = 11.552691;
     magnitude = 20.0;
@@ -1061,7 +1136,7 @@ let catalog = [
     name = "M61";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.365258;
     dec_degrees = 4.473777;
     magnitude = 9.7;
@@ -1077,7 +1152,7 @@ let catalog = [
     name = "M62";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 17.020167;
     dec_degrees = -30.112361;
     magnitude = 7.4;
@@ -1093,7 +1168,7 @@ let catalog = [
     name = "M63";
     common_name = Some "Sunflower Galaxy";
     object_type = Galaxy;
-    constellation = "Canes Venatici";
+    constellation = Canes_Venatici;
     ra_hours = 13.263687;
     dec_degrees = 42.029369;
     magnitude = 8.6;
@@ -1109,7 +1184,7 @@ let catalog = [
     name = "M64";
     common_name = Some "Black Eye Galaxy";
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.945471;
     dec_degrees = 21.682658;
     magnitude = 8.5;
@@ -1125,7 +1200,7 @@ let catalog = [
     name = "M65";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Leo";
+    constellation = Leo;
     ra_hours = 11.315530;
     dec_degrees = 13.092306;
     magnitude = 20.0;
@@ -1141,7 +1216,7 @@ let catalog = [
     name = "M66";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Leo";
+    constellation = Leo;
     ra_hours = 11.337507;
     dec_degrees = 12.991289;
     magnitude = 8.9;
@@ -1157,7 +1232,7 @@ let catalog = [
     name = "M67";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Cancer";
+    constellation = Cancer;
     ra_hours = 8.856389;
     dec_degrees = 11.813333;
     magnitude = 20.0;
@@ -1173,7 +1248,7 @@ let catalog = [
     name = "M68";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Hydra";
+    constellation = Hydra;
     ra_hours = 12.657772;
     dec_degrees = -26.744056;
     magnitude = 8.0;
@@ -1189,7 +1264,7 @@ let catalog = [
     name = "M69";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.523083;
     dec_degrees = -32.348083;
     magnitude = 8.3;
@@ -1205,7 +1280,7 @@ let catalog = [
     name = "M70";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 18.720211;
     dec_degrees = -32.292111;
     magnitude = 9.1;
@@ -1221,7 +1296,7 @@ let catalog = [
     name = "M71";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagitta";
+    constellation = Sagitta;
     ra_hours = 19.896247;
     dec_degrees = 18.779194;
     magnitude = 6.1;
@@ -1237,7 +1312,7 @@ let catalog = [
     name = "M72";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Aquarius";
+    constellation = Aquarius;
     ra_hours = 20.891028;
     dec_degrees = -12.537306;
     magnitude = 9.0;
@@ -1253,7 +1328,7 @@ let catalog = [
     name = "M73";
     common_name = None;
     object_type = Asterism;
-    constellation = "Aquarius";
+    constellation = Aquarius;
     ra_hours = 20.983333;
     dec_degrees = -12.633333;
     magnitude = 8.9;
@@ -1269,7 +1344,7 @@ let catalog = [
     name = "M74";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Pisces";
+    constellation = Pisces;
     ra_hours = 1.611596;
     dec_degrees = 15.783641;
     magnitude = 9.5;
@@ -1285,7 +1360,7 @@ let catalog = [
     name = "M75";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Sagittarius";
+    constellation = Sagittarius;
     ra_hours = 20.101345;
     dec_degrees = -21.922261;
     magnitude = 8.3;
@@ -1301,7 +1376,7 @@ let catalog = [
     name = "M76";
     common_name = Some "Little Dumbbell Nebula";
     object_type = Planetary_Nebula;
-    constellation = "Perseus";
+    constellation = Perseus;
     ra_hours = 1.705460;
     dec_degrees = 51.575426;
     magnitude = 17.5;
@@ -1317,7 +1392,7 @@ let catalog = [
     name = "M77";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Cetus";
+    constellation = Cetus;
     ra_hours = 2.711308;
     dec_degrees = -0.013294;
     magnitude = 8.9;
@@ -1333,7 +1408,7 @@ let catalog = [
     name = "M78";
     common_name = None;
     object_type = Nebula;
-    constellation = "Orion";
+    constellation = Orion;
     ra_hours = 5.779389;
     dec_degrees = 0.079167;
     magnitude = 20.0;
@@ -1349,7 +1424,7 @@ let catalog = [
     name = "M79";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Lepus";
+    constellation = Lepus;
     ra_hours = 5.402942;
     dec_degrees = -24.524250;
     magnitude = 8.2;
@@ -1365,7 +1440,7 @@ let catalog = [
     name = "M80";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Scorpius";
+    constellation = Scorpius;
     ra_hours = 16.284003;
     dec_degrees = -22.976083;
     magnitude = 20.0;
@@ -1381,7 +1456,7 @@ let catalog = [
     name = "M81";
     common_name = Some "Bode's Galaxy";
     object_type = Galaxy;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 9.925881;
     dec_degrees = 69.065295;
     magnitude = 6.9;
@@ -1397,7 +1472,7 @@ let catalog = [
     name = "M82";
     common_name = Some "Cigar Galaxy";
     object_type = Galaxy;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 9.931231;
     dec_degrees = 69.679703;
     magnitude = 8.4;
@@ -1413,7 +1488,7 @@ let catalog = [
     name = "M83";
     common_name = Some "Southern Pinwheel Galaxy";
     object_type = Galaxy;
-    constellation = "Hydra";
+    constellation = Hydra;
     ra_hours = 13.616922;
     dec_degrees = -29.865761;
     magnitude = 7.5;
@@ -1429,7 +1504,7 @@ let catalog = [
     name = "M84";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.417706;
     dec_degrees = 12.886983;
     magnitude = 10.5;
@@ -1445,7 +1520,7 @@ let catalog = [
     name = "M85";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.423348;
     dec_degrees = 18.191081;
     magnitude = 20.0;
@@ -1461,7 +1536,7 @@ let catalog = [
     name = "M86";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.436615;
     dec_degrees = 12.945969;
     magnitude = 8.9;
@@ -1477,7 +1552,7 @@ let catalog = [
     name = "M87";
     common_name = Some "Virgo A";
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.513729;
     dec_degrees = 12.391123;
     magnitude = 8.6;
@@ -1493,7 +1568,7 @@ let catalog = [
     name = "M88";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.533098;
     dec_degrees = 14.420319;
     magnitude = 13.2;
@@ -1509,7 +1584,7 @@ let catalog = [
     name = "M89";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.594391;
     dec_degrees = 12.556342;
     magnitude = 9.8;
@@ -1525,7 +1600,7 @@ let catalog = [
     name = "M90";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.613834;
     dec_degrees = 13.162923;
     magnitude = 9.5;
@@ -1541,7 +1616,7 @@ let catalog = [
     name = "M91";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.590679;
     dec_degrees = 14.496322;
     magnitude = 13.6;
@@ -1557,7 +1632,7 @@ let catalog = [
     name = "M92";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Hercules";
+    constellation = Hercules;
     ra_hours = 17.285386;
     dec_degrees = 43.135944;
     magnitude = 6.5;
@@ -1573,7 +1648,7 @@ let catalog = [
     name = "M93";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Puppis";
+    constellation = Puppis;
     ra_hours = 7.742778;
     dec_degrees = -23.853333;
     magnitude = 20.0;
@@ -1589,7 +1664,7 @@ let catalog = [
     name = "M94";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Canes Venatici";
+    constellation = Canes_Venatici;
     ra_hours = 12.848076;
     dec_degrees = 41.120250;
     magnitude = 8.2;
@@ -1605,7 +1680,7 @@ let catalog = [
     name = "M95";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Leo";
+    constellation = Leo;
     ra_hours = 10.732703;
     dec_degrees = 11.703695;
     magnitude = 9.7;
@@ -1621,7 +1696,7 @@ let catalog = [
     name = "M96";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Leo";
+    constellation = Leo;
     ra_hours = 10.779373;
     dec_degrees = 11.819939;
     magnitude = 9.2;
@@ -1637,7 +1712,7 @@ let catalog = [
     name = "M97";
     common_name = Some "Owl Nebula";
     object_type = Planetary_Nebula;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 11.246587;
     dec_degrees = 55.019023;
     magnitude = 15.8;
@@ -1653,7 +1728,7 @@ let catalog = [
     name = "M98";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.230081;
     dec_degrees = 14.900543;
     magnitude = 10.1;
@@ -1669,7 +1744,7 @@ let catalog = [
     name = "M99";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.313785;
     dec_degrees = 14.416489;
     magnitude = 9.9;
@@ -1685,7 +1760,7 @@ let catalog = [
     name = "M100";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Coma Berenices";
+    constellation = Coma_Berenices;
     ra_hours = 12.381925;
     dec_degrees = 15.822305;
     magnitude = 9.3;
@@ -1701,7 +1776,7 @@ let catalog = [
     name = "M101";
     common_name = Some "Pinwheel Galaxy";
     object_type = Galaxy;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 14.053495;
     dec_degrees = 54.348750;
     magnitude = 7.9;
@@ -1717,7 +1792,7 @@ let catalog = [
     name = "M102";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Draco";
+    constellation = Draco;
     ra_hours = 15.108211;
     dec_degrees = 55.763308;
     magnitude = 9.9;
@@ -1733,7 +1808,7 @@ let catalog = [
     name = "M103";
     common_name = None;
     object_type = Open_Cluster;
-    constellation = "Cassiopeia";
+    constellation = Cassiopeia;
     ra_hours = 1.555833;
     dec_degrees = 60.658333;
     magnitude = 7.4;
@@ -1749,7 +1824,7 @@ let catalog = [
     name = "M104";
     common_name = Some "Sombrero Galaxy";
     object_type = Galaxy;
-    constellation = "Virgo";
+    constellation = Virgo;
     ra_hours = 12.666508;
     dec_degrees = -11.623052;
     magnitude = 8.0;
@@ -1765,7 +1840,7 @@ let catalog = [
     name = "M105";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Leo";
+    constellation = Leo;
     ra_hours = 10.797111;
     dec_degrees = 12.581631;
     magnitude = 9.8;
@@ -1781,7 +1856,7 @@ let catalog = [
     name = "M106";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Canes Venatici";
+    constellation = Canes_Venatici;
     ra_hours = 12.316006;
     dec_degrees = 47.303719;
     magnitude = 8.4;
@@ -1797,7 +1872,7 @@ let catalog = [
     name = "M107";
     common_name = None;
     object_type = Globular_Cluster;
-    constellation = "Ophiuchus";
+    constellation = Ophiuchus;
     ra_hours = 16.542183;
     dec_degrees = -13.053778;
     magnitude = 8.8;
@@ -1813,7 +1888,7 @@ let catalog = [
     name = "M108";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 11.191935;
     dec_degrees = 55.674122;
     magnitude = 20.0;
@@ -1829,7 +1904,7 @@ let catalog = [
     name = "M109";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Ursa Major";
+    constellation = Ursa_Major;
     ra_hours = 11.959990;
     dec_degrees = 53.374724;
     magnitude = 20.0;
@@ -1845,7 +1920,7 @@ let catalog = [
     name = "M110";
     common_name = None;
     object_type = Galaxy;
-    constellation = "Andromeda";
+    constellation = Andromeda;
     ra_hours = 0.672794;
     dec_degrees = 41.685419;
     magnitude = 8.1;
@@ -1873,7 +1948,7 @@ let filter_by_magnitude mag_limit =
 
 let all_constellations () =
   let consts = List.map (fun obj -> obj.constellation) catalog in
-  List.sort_uniq String.compare consts
+  List.sort_uniq compare consts
 
 let coordinates_to_string obj =
   let ra_h = int_of_float obj.ra_hours in

@@ -1,2 +1,4 @@
 *~
 _build/
+*.shar.*
+.DS_Store

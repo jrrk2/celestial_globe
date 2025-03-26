@@ -73,7 +73,8 @@ let is_within_region sphere_point celestial_pos angular_radius_deg =
   
   (* Check if within angular radius *)
   angle_deg <= angular_radius_deg
-(* Modified fragment shader that crops textures without yellow highlights *)
+
+(* Modified fragment shader that blends textures additively *)
 let create_celestial_fragment_shader num_textures =
   let texture_uniform_declarations = 
     String.concat "\n" (List.init num_textures (fun i ->
@@ -93,10 +94,10 @@ let create_celestial_fragment_shader num_textures =
     else
       String.concat "\n" [
         "vec3 textureColor = vec3(0.0, 0.0, 0.0);";
-        "bool found_texture = false;";
+        "float totalWeight = 0.0;"; (* Track total weight for blending *)
         String.concat "\n" (List.init num_textures (fun i ->
           Printf.sprintf "
-          if (!found_texture) {
+          {
             // Calculate angle between fragment position and texture center
             vec3 texDir%d = vec3(
               cos(u_texPos%d.y * 3.14159 / 180.0) * cos(u_texPos%d.x * 3.14159 / 180.0),
@@ -133,15 +134,24 @@ let create_celestial_fragment_shader num_textures =
               u = 0.3 + (u * 0.4); // Use middle 40%% horizontally (30%% to 70%%)
               v = 0.3 + (v * 0.4); // Use middle 40%% vertically (30%% to 70%%)
               
-              // Sample texture
-              textureColor = texture2D(u_texture%d, vec2(u, v)).rgb;
+              // Calculate a weight based on distance from center
+              // Higher weight near the center, lower at the edges
+              float distFromCenter = angleDeg%d / u_texPos%d.z; // 0.0 (center) to 1.0 (edge)
+              float weight = 1.0 - distFromCenter;
               
-              found_texture = true;
+              // Sample texture and add weighted contribution
+              vec3 texColor = texture2D(u_texture%d, vec2(u, v)).rgb;
+              textureColor += texColor * weight;
+              totalWeight += weight;
             }
-          }" i i i i i i i i i i i i i i i i i
+          }" i i i i i i i i i i i i i i i i i i i
         ));
-        "if (!found_texture) {";
-        "  // Use background star field";
+        
+        (* Normalize the accumulated colors if we have any weights *)
+        "if (totalWeight > 0.0) {";
+        "  textureColor = textureColor / totalWeight;";
+        "} else {";
+        "  // Use background star field if no textures apply";
         "  textureColor = vec3(0.0, 0.0, 0.1);";
         "  ";
         "  // Add stars based on position";
@@ -197,7 +207,7 @@ let create_celestial_fragment_shader num_textures =
       
       gl_FragColor = vec4(color, 1.0);
     }
-  " texture_uniform_declarations coord_uniform_declarations texture_sampling_code
+  " texture_uniform_declarations coord_uniform_declarations texture_sampling_code  
 
 let compare_siz {size_arcmin=(w1,h1);_} {size_arcmin=(w2,h2);_} = let diff = w1*.h1 -. w2*.h2 in if diff > 0. then -1 else if diff < 0. then 1 else 0
   
@@ -221,14 +231,16 @@ let messier_objects =
     best_viewed;
     } ->
   let siz = max (fst size_arcmin) (snd size_arcmin) in
-  let image = List.mem name imaged in
-  let active = true in
+  let image = List.mem_assoc name imaged in
+  let active = image && List.assoc name imaged in
+(*  
   let active1 = match object_type with Planetary_Nebula | Nebula -> true | _ -> false in
   let active2 = match object_type with Galaxy | Galaxy_Cluster -> true | _ -> false in
   let active3 = match object_type with Globular_Cluster | Open_Cluster -> true | _ -> false in
-  let active4 = match constellation with "Canes Venatici" -> true | _ -> false in
-  let active5 = match constellation with "Taurus" -> true | _ -> false in
-  if active2 && List.length !lst < 16 && image then
+  let active4 = match constellation with Canes_Venatici | Ursa_Major -> true | _ -> false in
+  let active5 = match constellation with Taurus -> true | _ -> false in
+*)
+  if active && List.length !lst < 16 && image then
     begin
     lst := (name^" "^(match common_name with Some txt -> txt | None -> ""), ra_hours *. 15.0, dec_degrees, 1.0, id ) :: !lst;
     debug "%s" name;
@@ -696,7 +708,7 @@ let start_celestial_globe texture_base_url =
   log_texture_msg `Debug "Loading celestial textures...";
   
   (* Magnification factor to make objects more visible *)
-  let magnification = 20.0 in
+  let magnification = 10.0 in
   
   let texture_infos = List.mapi (fun i (name, ra, dec, size, id) ->
     let url = Printf.sprintf "%s/M%d.jpg" texture_base_url id in
