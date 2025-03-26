@@ -1,5 +1,5 @@
 (executables
- (names webgldemo)
+ (names webglglobe)
  (libraries js_of_ocaml-lwt)
  (modes js wasm)
  (preprocess
@@ -7,12 +7,12 @@
 
 (alias
  (name default)
- (deps webgldemo.bc.js index.html))
+ (deps webglglobe.bc.js index.html))
 
 (alias
  (name default)
  (enabled_if %{env:WASM_OF_OCAML=false})
- (deps webgldemo.bc.wasm.js index-wasm.html))
+ (deps webglglobe.bc.wasm.js index-wasm.html))
 
 (env
   (dev
