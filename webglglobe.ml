@@ -1212,7 +1212,7 @@ let () =
   debug "Initializing webgldemo";
   try
     setup_texture_debugging ();
-    let texture_base_url = "https://kimmitt.uk/celestial_globe/messier" in
+    let texture_base_url = "http://localhost:9000/messier" in
     Lwt.async (fun () -> start_celestial_globe texture_base_url)
   with e ->
     error "Uncaught exception: %s" (Printexc.to_string e)
